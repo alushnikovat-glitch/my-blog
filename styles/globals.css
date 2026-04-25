@@ -689,3 +689,61 @@ textarea:focus, input[type="text"]:focus {
     padding: 16px;
   }
 }
+/* PROMPT BLOCKS */
+.article-content .prompt-block {
+  background: #1e1e2e;
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.article-content .prompt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #2a2a3e;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.article-content .prompt-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255,255,255,0.4);
+}
+
+.article-content .copy-btn {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.08);
+  border: none;
+  border-radius: 5px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.article-content .copy-btn:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.article-content .copy-btn.copied {
+  background: rgba(34,197,94,0.2);
+  color: #4ade80;
+}
+
+.article-content .prompt-block code {
+  display: block;
+  font-family: monospace;
+  font-size: 14px;
+  color: #cdd6f4;
+  line-height: 1.75;
+  padding: 16px;
+  background: none;
+  border-radius: 0;
+  white-space: pre-wrap;
+}
