@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { savePost } from '../../lib/posts'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end()
@@ -25,28 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         max_tokens: 4000,
         messages: [{
           role: 'user',
-          content: `Ты помогаешь структурировать текст для SEO-блога на русском языке.
-
-Получаешь сырой текст статьи или лид-магнита.
-Возвращаешь ТОЛЬКО валидный JSON без markdown-обёртки, без комментариев.
-
-Структура JSON:
-{
-  "slug": "url-friendly-slug-на-латинице-через-дефис",
-  "title": "Заголовок H1, до 60 символов, цепляющий",
-  "description": "Meta description 120-155 символов, описывает ценность материала",
-  "tags": ["тег1", "тег2", "тег3"],
-  "content": "Готовый markdown с H2/H3 структурой. Сохраняй смысл и стиль автора. Добавляй H2 там где начинается новая мысль. Изображения вставляй как ![описание](/images/название.png) если они упоминаются."
-}
-
-Правила:
-- slug только латиница, цифры, дефисы
-- title и description на русском
-- tags на русском, 2-4 штуки
-- content — полный структурированный markdown
-
-Текст для обработки:
-${text}`
+          content: `Ты помогаешь структурировать текст для SEO-блога на русском языке.\n\nПолучаешь сырой текст статьи или лид-магнита.\nВозвращаешь ТОЛЬКО валидный JSON без markdown-обёртки, без комментариев.\n\nСтруктура JSON:\n{\n  "slug": "url-friendly-slug-на-латинице-через-дефис",\n  "title": "Заголовок H1, до 60 символов, цепляющий",\n  "description": "Meta description 120-155 символов, описывает ценность материала",\n  "tags": ["тег1", "тег2", "тег3"],\n  "content": "Готовый markdown с H2/H3 структурой. Сохраняй смысл и стиль автора. Добавляй H2 там где начинается новая мысль."\n}\n\nПравила:\n- slug только латиница, цифры, дефисы\n- title и description на русском\n- tags на русском, 2-4 штуки\n- content — полный структурированный markdown\n\nТекст для обработки:\n${text}`
         }]
       })
     })
@@ -63,20 +41,16 @@ ${text}`
     }
 
     const today = new Date().toISOString().split('T')[0]
-    savePost(parsed.slug, {
-      title: parsed.title,
-      description: parsed.description,
-      pubDate: today,
-      tags: parsed.tags || [],
-      image: '/images/og-default.png'
-    }, parsed.content)
+
+    const markdown = `---\ntitle: "${parsed.title}"\ndescription: "${parsed.description}"\npubDate: "${today}"\ntags: [${(parsed.tags || []).map((t: string) => `"${t}"`).join(', ')}]\nimage: "/images/og-default.png"\n---\n\n${parsed.content}`
 
     return res.status(200).json({
       slug: parsed.slug,
       title: parsed.title,
       description: parsed.description,
       tags: parsed.tags,
-      url: `/blog/${parsed.slug}`
+      markdown,
+      filename: `${parsed.slug}.md`
     })
 
   } catch (err: any) {
