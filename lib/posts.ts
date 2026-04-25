@@ -39,12 +39,23 @@ export function getAllPosts(): PostMeta[] {
   return posts.sort((a, b) => (a.pubDate < b.pubDate ? 1 : -1))
 }
 
+function transformPromptBlocks(content: string): string {
+  return content.replace(/```prompt\n([\s\S]*?)```/g, (_, code) => {
+    const escaped = code.trim()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+    return `<div class="prompt-block"><div class="prompt-header"><span class="prompt-label">Промпт</span><button class="copy-btn">Копировать</button></div><code>${escaped}</code></div>`
+  })
+}
+
 export async function getPost(slug: string): Promise<Post | null> {
   const filePath = path.join(postsDir, `${slug}.md`)
   if (!fs.existsSync(filePath)) return null
   const raw = fs.readFileSync(filePath, 'utf8')
   const { data, content } = matter(raw)
-  const processed = await remark().use(remarkGfm).use(remarkHtml, { sanitize: false }).process(content)
+  const transformed = transformPromptBlocks(content)
+  const processed = await remark().use(remarkGfm).use(remarkHtml, { sanitize: false }).process(transformed)
   return {
     slug,
     title: data.title || '',
