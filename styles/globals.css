@@ -509,37 +509,39 @@ textarea:focus, input[type="text"]:focus {
 /* ARTICLE CONTENT */
 .article-content h2 {
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--text);
-  margin: 36px 0 14px;
+  margin: 48px 0 16px;
   letter-spacing: -0.3px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
 }
 
 .article-content h3 {
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text);
-  margin: 24px 0 10px;
+  margin: 32px 0 10px;
 }
 
 .article-content p {
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.85;
   color: var(--text);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .article-content ul, .article-content ol {
   padding-left: 20px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .article-content li {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.8;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .article-content strong {
@@ -547,19 +549,77 @@ textarea:focus, input[type="text"]:focus {
 }
 
 .article-content img {
-  margin: 24px 0;
+  margin: 28px 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
 
 .article-content blockquote {
   border-left: 3px solid var(--blue);
-  padding: 10px 18px;
-  margin: 20px 0;
+  padding: 14px 20px;
+  margin: 24px 0;
   background: var(--accent);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 10px 10px 0;
   color: var(--blue-dark);
-  font-size: 15px;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.article-content pre {
+  background: #1e1e2e;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.article-content pre code {
+  font-family: monospace;
+  font-size: 14px;
+  color: #cdd6f4;
+  line-height: 1.7;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.article-content code {
+  font-family: monospace;
+  font-size: 13px;
+  background: #f0f4ff;
+  color: var(--blue);
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+.article-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+.article-content th {
+  background: var(--bg);
+  font-weight: 600;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+}
+
+.article-content td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-content tr:last-child td {
+  border-bottom: none;
 }
 
 /* FOOTER */
