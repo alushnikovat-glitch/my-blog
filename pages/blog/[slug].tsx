@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Layout from '../../components/Layout'
 import { getAllPosts, getPost, Post } from '../../lib/posts'
+import { useEffect } from 'react'
 
 interface Props {
   post: Post
@@ -23,11 +24,27 @@ export default function BlogPost({ post }: Props) {
     datePublished: post.pubDate,
     author: {
       '@type': 'Person',
-      name: 'Анастасия Лушникова',
-      url: 'https://target-school.github.io'
+      name: 'Анастасия Лушникова'
     },
     keywords: post.tags.join(', ')
   }
+
+  useEffect(() => {
+    document.querySelectorAll('.prompt-block').forEach(block => {
+      const btn = block.querySelector('.copy-btn') as HTMLButtonElement
+      const code = block.querySelector('code')
+      if (!btn || !code) return
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(code.innerText)
+        btn.textContent = '✓ Скопировано'
+        btn.classList.add('copied')
+        setTimeout(() => {
+          btn.textContent = 'Копировать'
+          btn.classList.remove('copied')
+        }, 2000)
+      })
+    })
+  }, [])
 
   return (
     <Layout title={post.title} description={post.description} ogImage={post.image}>
