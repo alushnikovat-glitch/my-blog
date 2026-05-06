@@ -5,13 +5,5 @@ const nextConfig = {
     unoptimized: true
   },
   trailingSlash: true,
-  async rewrites() {
-    return [
-      {
-        source: '/carousel-claude/',
-        destination: '/carousel-claude/index.html',
-      },
-    ]
-  }
 }
 module.exports = nextConfig
